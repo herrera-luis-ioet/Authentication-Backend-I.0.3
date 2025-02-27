@@ -57,3 +57,6 @@ yarn-error.log
 .serverless/
 .fusebox/
 .dynamodb/
+
+venv
+app.db
