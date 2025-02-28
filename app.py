@@ -22,23 +22,12 @@ def create_app(config_class=Config):
 
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
-    @app.route('/health')
-    def health_check():
-        """Health check endpoint."""
-        return {'status': 'healthy'}, 200    @app.route('/health')
-    def health_check():
-        """Health check endpoint."""
-        return {'status': 'healthy'}, 200
-    return app
 
-
-
-    
     @app.route('/health')
     def health_check():
         """Health check endpoint."""
         return {'status': 'healthy'}, 200
-    
+
     return app
 
 
