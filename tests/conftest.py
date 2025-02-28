@@ -1,6 +1,7 @@
 import pytest
 import os
 from app import create_app
+from app.config import TestingConfig
 from app.auth.models import db, User
 import jwt
 from datetime import datetime, timedelta
@@ -44,7 +45,7 @@ def app(request):
     """Create and configure a test Flask application."""
     database_url = get_database_url(request)
     
-    app = create_app('testing')
+    app = create_app(TestingConfig)
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['TESTING'] = True
     app.config['JWT_SECRET_KEY'] = 'test-secret-key'
