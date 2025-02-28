@@ -33,7 +33,7 @@ def validate_username(username: str) -> bool:
     """Validate username format."""
     if len(username) < 3 or len(username) > 32:
         return False
-    if not re.match(r"^[a-zA-Z0-9_-]+$", username):
+    if not re.match(r"^[a-zA-Z0-9_.@-]+$", username):
         return False
     return True
 
