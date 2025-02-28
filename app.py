@@ -1,28 +1,38 @@
-from flask import Flask
-from app.config import config
-from app.auth.models import db
-from app.auth.routes import limiter
 from flask_cors import CORS
+from flask import Flask, cli
+from flask_sqlalchemy import SQLAlchemy
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_migrate import Migrate
+from app.config import Config
 
-def create_app(config_name='default'):
-    """Application factory function."""
+db = SQLAlchemy()
+migrate = Migrate()
+limiter = Limiter(key_func=get_remote_address)
+
+def create_app(config_class=Config):
     app = Flask(__name__)
     CORS(app)
 
-    # Load config
-    app.config.from_object(config[config_name])
-    
-    # Initialize extensions
+    app.config.from_object(config_class)
+
     db.init_app(app)
+    migrate.init_app(app, db)
     limiter.init_app(app)
-    
-    # Create database tables
-    with app.app_context():
-        db.create_all()
-    
-    # Register blueprints
-    from app.auth.routes import auth_bp
+
+    from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    @app.route('/health')
+    def health_check():
+        """Health check endpoint."""
+        return {'status': 'healthy'}, 200    @app.route('/health')
+    def health_check():
+        """Health check endpoint."""
+        return {'status': 'healthy'}, 200
+    return app
+
+
+
     
     @app.route('/health')
     def health_check():

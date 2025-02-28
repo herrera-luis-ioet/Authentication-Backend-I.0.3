@@ -38,7 +38,33 @@
           "details": "Update README.md and create additional documentation including:\n- Project setup instructions\n- API documentation\n- Usage examples\n- Development guidelines\n- Deployment instructions"
         }
       }
+    },
+    "Task2": {
+      "description": "Replace SQLite with MySQL RDS",
+      "task_description": "Update the authentication system to use MySQL RDS instead of SQLite",
+      "status": "to-do",
+      "details": "Migrate the database backend from SQLite to MySQL RDS, including configuration updates, connection handling, and testing",
+      "subtasks": {
+        "Task2SubTask1": {
+          "description": "Update database configuration",
+          "status": "in-progress",
+          "micro_agent": "CodeWritingAgent",
+          "details": "Update configuration files with MySQL RDS connection settings using environment variables:\n- DB_HOST=your-rds-endpoint.region.rds.amazonaws.com\n- DB_PORT=3306\n- DB_NAME=auth_db\n- DB_USER=db_user\n- DB_PASSWORD=db_password\nFiles to update:\n- .env.example\n- app/config.py\n- docker-compose.yml"
+        },
+        "Task2SubTask2": {
+          "description": "Implement database migrations",
+          "status": "to-do",
+          "micro_agent": "CodeWritingAgent",
+          "details": "Set up and implement database migrations using Flask-Migrate:\n- Initialize migrations directory\n- Create initial migration script\n- Update application factory with migration support\nFiles to update:\n- app/__init__.py\n- migrations/\n- requirements.txt"
+        },
+        "Task2SubTask3": {
+          "description": "Update test configuration",
+          "status": "to-do",
+          "micro_agent": "TestCodeWritingAgent",
+          "details": "Update test configuration to support both SQLite (for unit tests) and MySQL (for integration tests):\n- Update test configuration\n- Add MySQL-specific test cases\n- Implement test database setup/teardown\nFiles to update:\n- tests/conftest.py\n- tests/test_database.py"
+        }
+      }
     }
   },
-  "next_task_id": 2
+  "next_task_id": 3
 }
