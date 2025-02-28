@@ -39,7 +39,17 @@ class ProductionConfig(Config):
     """Production configuration."""
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    
+    # Database configuration for MySQL RDS
+    # Format: mysql+pymysql://<username>:<password>@<host>:<port>/<database>
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'mysql+pymysql://{}:{}@{}:{}/{}'.format(
+            os.environ.get('DB_USER', 'user'),
+            os.environ.get('DB_PASSWORD', 'password'),
+            os.environ.get('DB_HOST', 'localhost'),
+            os.environ.get('DB_PORT', '3306'),
+            os.environ.get('DB_NAME', 'auth_db')
+        )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Override security settings for production
