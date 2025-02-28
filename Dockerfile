@@ -12,7 +12,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        default-libmysqlclient-dev \
+        build-essential \
+        pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file
@@ -27,5 +31,5 @@ COPY . .
 # Expose port
 EXPOSE 5000
 
-# Command to run the application
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Command to run migrations and start the application
+CMD flask db upgrade && flask run --host=0.0.0.0
