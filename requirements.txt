@@ -8,3 +8,4 @@ SQLAlchemy==1.4.23
 alembic==1.7.1
 pymysql==1.0.2
 cryptography==3.4.7
+flask_migrate

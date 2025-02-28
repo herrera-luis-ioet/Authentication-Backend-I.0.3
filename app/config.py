@@ -2,7 +2,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev'
+    JWT_SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev'
     # Construct MySQL connection string if environment variables are set
     if all([os.environ.get(var) for var in ['DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DB_NAME']]):
         SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{user}:{password}@{host}:{port}/{database}'.format(
@@ -17,3 +17,4 @@ class Config:
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
             'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
